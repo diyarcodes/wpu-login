@@ -7,9 +7,21 @@ class Auth extends CI_Controller
     {
         $data['judul'] = "Halaman Login";
 
-        $this->load->view('templates/auth_header', $data);
-        $this->load->view('auth/login');
-        $this->load->view('templates/auth_footer');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+            'required' => 'Email Tidak Boleh Kosong',
+            'valid_email' => 'Email Harus Benar'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]', [
+            'required' => 'Password Tidak Boleh Kosong'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/login');
+            $this->load->view('templates/auth_footer');
+        } else {
+            $this->Wpu_model->login();
+        }
     }
 
     public function registration()
@@ -58,5 +70,17 @@ class Auth extends CI_Controller
           </div>');
             redirect('auth');
         }
+    }
+
+    public function logout() {
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role_id');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Logout
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>');
+            redirect('auth');
     }
 }
