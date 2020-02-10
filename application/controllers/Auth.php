@@ -51,17 +51,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/registrasi');
             $this->load->view('templates/auth_footer');
         } else {
-            $data = [
-                'name' => htmlspecialchars($this->input->post('name', true)),
-                'email' => htmlspecialchars($this->input->post('email', true)),
-                'image' => 'default.jpg',
-                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 2,
-                'is_active' => 1,
-                'date_created' => time()
-            ];
-
-            $this->db->insert('user', $data);
+            $this->Wpu_model->registrationUser();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             User Berhasil Terdaftar
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -72,15 +62,15 @@ class Auth extends CI_Controller
         }
     }
 
-    public function logout() {
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('role_id');
+    public function logout()
+    {
+        $this->Wpu_model->logoutUser();
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Logout
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>');
-            redirect('auth');
+        redirect('auth');
     }
 }
