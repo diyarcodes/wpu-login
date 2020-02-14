@@ -17,6 +17,7 @@ class Wpu_model extends CI_Model
 
     $this->db->insert('user', $data);
   }
+
   public function login()
   {
     $email = $this->input->post('email');
@@ -57,10 +58,10 @@ class Wpu_model extends CI_Model
         redirect('auth');
       }
     } else {
-      $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
             User Belum Registrasi
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" data-dismiss="alert">
+              <span>&times;</span>
             </button>
           </div>');
       redirect('auth');
@@ -71,5 +72,12 @@ class Wpu_model extends CI_Model
   {
     $this->session->unset_userdata('email');
     $this->session->unset_userdata('role_id');
+    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Logout
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>');
+    redirect('auth');
   }
 }
