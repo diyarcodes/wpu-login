@@ -41,25 +41,29 @@
         ?>
 
         <?php foreach ($subMenu as $sm) : ?>
-            <li class="nav-item">
+            <?php if ($judul == $sm['title']) : ?>
+                <li class="nav-item active">
+                <?php else : ?>
+                <li class="nav-item">
+                <?php endif; ?>
                 <a class="nav-link" href="<?= $sm['url']; ?>">
                     <i class="<?= $sm['icon']; ?>"></i>
                     <span><?= $sm['title']; ?></span></a>
-            </li>
+                </li>
+            <?php endforeach; ?>
+            <hr class="sidebar-divider">
         <?php endforeach; ?>
-        <hr class="sidebar-divider">
-    <?php endforeach; ?>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('Auth/logout'); ?>">
-            <i class="fas fa-fw fa-sign-out-alt"></i>
-            <span>Logout</span></a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('Auth/logout'); ?>">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Logout</span></a>
+        </li>
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
 
 </ul>
 <!-- End of Sidebar -->
