@@ -73,4 +73,9 @@ class Auth extends CI_Controller
           </div>');
         redirect('auth');
     }
+
+    public function blocked()
+    {
+        echo "404";
+    }
 }
